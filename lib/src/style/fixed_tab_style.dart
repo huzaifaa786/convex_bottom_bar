@@ -105,7 +105,12 @@ class FixedTabStyle extends InnerBuilder {
               color: item.blend ? (c) : null,
               size: index == 2 ? centerIconSized : iconSize,
             ),
-            Text(item.title ?? '', style:active ? selectedTextStyle: index == 2 ? centerTextStyle : textStyle),
+            Text(item.title ?? '',
+                style: active
+                    ? selectedTextStyle
+                    : index == 2
+                        ? centerTextStyle
+                        : textStyle),
           ],
         ),
       );
@@ -116,7 +121,15 @@ class FixedTabStyle extends InnerBuilder {
       size: index == 2 ? centerIconSized : iconSize,
       color: item.blend ? (c) : null,
     );
-    var children = <Widget>[icon, Text(item.title ?? '', style: index == 2 ? centerTextStyle : textStyle)];
+    var children = <Widget>[
+      icon,
+      Text(item.title ?? '',
+          style: active
+              ? selectedTextStyle
+              : index == 2
+                  ? centerTextStyle
+                  : textStyle)
+    ];
     return Container(
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
