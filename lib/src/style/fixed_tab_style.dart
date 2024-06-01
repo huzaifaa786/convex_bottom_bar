@@ -40,6 +40,7 @@ import 'inner_builder.dart';
 ///   color: Colors.grey,
 ///   convexIndex: 1,
 ///   textStyle: TextStyle(color: Colors.black),
+///   centerTextStyle: TextStyle(color: Colors.red),
 ///   iconSize: 24.0,
 ///   centerIconSized: 34.0,
 /// );
@@ -57,9 +58,12 @@ class FixedTabStyle extends InnerBuilder {
   /// Style of the text.
   final TextStyle textStyle;
 
+  /// Style of the text for the centered tab.
+  final TextStyle centerTextStyle;
+
   /// Creates a [FixedTabStyle] instance.
   ///
-  /// The [items], [activeColor], [color], [convexIndex], [textStyle], [iconSize], and
+  /// The [items], [activeColor], [color], [convexIndex], [textStyle], [centerTextStyle], [iconSize], and
   /// [centerIconSized] parameters must not be null.
   FixedTabStyle({
     required List<TabItem> items,
@@ -67,6 +71,7 @@ class FixedTabStyle extends InnerBuilder {
     required Color color,
     required this.convexIndex,
     required this.textStyle,
+    required this.centerTextStyle,
     required this.iconSize,
     required this.centerIconSized,
   }) : super(items: items, activeColor: activeColor, color: color);
@@ -95,7 +100,7 @@ class FixedTabStyle extends InnerBuilder {
               color: item.blend ? (c) : null,
               size: index == 2 ? centerIconSized : iconSize,
             ),
-            Text(item.title ?? '', style: textStyle),
+            Text(item.title ?? '', style: index == 2 ? centerTextStyle : textStyle),
           ],
         ),
       );
@@ -106,7 +111,7 @@ class FixedTabStyle extends InnerBuilder {
       size: index == 2 ? centerIconSized : iconSize,
       color: item.blend ? (c) : null,
     );
-    var children = <Widget>[icon, Text(item.title ?? '', style: textStyle)];
+    var children = <Widget>[icon, Text(item.title ?? '', style: index == 2 ? centerTextStyle : textStyle)];
     return Container(
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
