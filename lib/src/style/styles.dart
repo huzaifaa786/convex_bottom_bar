@@ -35,6 +35,7 @@ DelegateBuilder supportedStyle(
   required Color activeColor,
   required TextStyle textStyle,
   required TextStyle centerTextStyle,
+  required TextStyle selectedTextStyle,
   required double iconSize,
   required double centerIconSized,
   required Color backgroundColor,
@@ -58,6 +59,7 @@ DelegateBuilder supportedStyle(
         textStyle: textStyle,
         centerIconSized: centerIconSized,
         centerTextStyle: centerTextStyle,
+        selectedTextStyle: selectedTextStyle,
       );
       break;
     case TabStyle.fixedCircle:

@@ -41,6 +41,7 @@ import 'inner_builder.dart';
 ///   convexIndex: 1,
 ///   textStyle: TextStyle(color: Colors.black),
 ///   centerTextStyle: TextStyle(color: Colors.red),
+///   selectedTextStyle: TextStyle(color: Colors.green),
 ///   iconSize: 24.0,
 ///   centerIconSized: 34.0,
 /// );
@@ -61,9 +62,12 @@ class FixedTabStyle extends InnerBuilder {
   /// Style of the text for the centered tab.
   final TextStyle centerTextStyle;
 
+  /// Style of the text for the selected tab.
+  final TextStyle selectedTextStyle;
+
   /// Creates a [FixedTabStyle] instance.
   ///
-  /// The [items], [activeColor], [color], [convexIndex], [textStyle], [centerTextStyle], [iconSize], and
+  /// The [items], [activeColor], [color], [convexIndex], [textStyle], [centerTextStyle], [selectedTextStyle], [iconSize], and
   /// [centerIconSized] parameters must not be null.
   FixedTabStyle({
     required List<TabItem> items,
@@ -72,6 +76,7 @@ class FixedTabStyle extends InnerBuilder {
     required this.convexIndex,
     required this.textStyle,
     required this.centerTextStyle,
+    required this.selectedTextStyle,
     required this.iconSize,
     required this.centerIconSized,
   }) : super(items: items, activeColor: activeColor, color: color);
@@ -100,7 +105,7 @@ class FixedTabStyle extends InnerBuilder {
               color: item.blend ? (c) : null,
               size: index == 2 ? centerIconSized : iconSize,
             ),
-            Text(item.title ?? '', style: index == 2 ? centerTextStyle : textStyle),
+            Text(item.title ?? '', style:active ? selectedTextStyle: index == 2 ? centerTextStyle : textStyle),
           ],
         ),
       );
