@@ -35,6 +35,7 @@ DelegateBuilder supportedStyle(
   required Color activeColor,
   required TextStyle textStyle,
   required double iconSize,
+  required double centerIconSized,
   required Color backgroundColor,
   required Curve curve,
 }) {
@@ -54,6 +55,7 @@ DelegateBuilder supportedStyle(
         convexIndex: items.length ~/ 2,
         iconSize: iconSize,
         textStyle: textStyle,
+        centerIconSized: centerIconSized,
       );
       break;
     case TabStyle.fixedCircle:

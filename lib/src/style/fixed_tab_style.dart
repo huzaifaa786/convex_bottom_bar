@@ -41,6 +41,7 @@ import 'inner_builder.dart';
 ///   convexIndex: 1,
 ///   textStyle: TextStyle(color: Colors.black),
 ///   iconSize: 24.0,
+///   centerIconSized: 34.0,
 /// );
 /// ```
 class FixedTabStyle extends InnerBuilder {
@@ -50,13 +51,16 @@ class FixedTabStyle extends InnerBuilder {
   /// Size of the icon.
   final double iconSize;
 
+  /// Size of the centered icon.
+  final double centerIconSized;
+
   /// Style of the text.
   final TextStyle textStyle;
 
   /// Creates a [FixedTabStyle] instance.
   ///
-  /// The [items], [activeColor], [color], [convexIndex], [textStyle], and
-  /// [iconSize] parameters must not be null.
+  /// The [items], [activeColor], [color], [convexIndex], [textStyle], [iconSize], and
+  /// [centerIconSized] parameters must not be null.
   FixedTabStyle({
     required List<TabItem> items,
     required Color activeColor,
@@ -64,8 +68,16 @@ class FixedTabStyle extends InnerBuilder {
     required this.convexIndex,
     required this.textStyle,
     required this.iconSize,
+    required this.centerIconSized,
   }) : super(items: items, activeColor: activeColor, color: color);
 
+  /// Builds the widget for a tab item.
+  ///
+  /// The [context] is the build context.
+  /// The [index] is the index of the tab item.
+  /// The [active] indicates if the tab item is active.
+  ///
+  /// Returns a [Widget] representing the tab item.
   @override
   Widget build(BuildContext context, int index, bool active) {
     var c = active ? activeColor : color;
@@ -81,7 +93,7 @@ class FixedTabStyle extends InnerBuilder {
             BlendImageIcon(
               active ? item.activeIcon ?? item.icon : item.icon,
               color: item.blend ? (c) : null,
-              size: iconSize,
+              size: index == 2 ? centerIconSized : iconSize,
             ),
             Text(item.title ?? '', style: textStyle),
           ],
@@ -91,7 +103,7 @@ class FixedTabStyle extends InnerBuilder {
 
     var icon = BlendImageIcon(
       active ? item.activeIcon ?? item.icon : item.icon,
-      size: iconSize,
+      size: index == 2 ? centerIconSized : iconSize,
       color: item.blend ? (c) : null,
     );
     var children = <Widget>[icon, Text(item.title ?? '', style: textStyle)];
@@ -104,6 +116,9 @@ class FixedTabStyle extends InnerBuilder {
     );
   }
 
+  /// Indicates whether the tab is fixed.
+  ///
+  /// This method always returns `true` for [FixedTabStyle].
   @override
   bool fixed() {
     return true;
