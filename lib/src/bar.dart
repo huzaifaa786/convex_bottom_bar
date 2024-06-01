@@ -198,6 +198,8 @@ class ConvexAppBar extends StatefulWidget {
     TabController? controller,
     Color? color,
     Color? activeColor,
+    TextStyle? textStyle,
+    double? iconSize,
     Color? backgroundColor,
     Color? shadowColor,
     Gradient? gradient,
@@ -218,6 +220,8 @@ class ConvexAppBar extends StatefulWidget {
             activeColor: activeColor ?? Colors.white,
             backgroundColor: backgroundColor ?? Colors.blue,
             curve: curve ?? Curves.easeInOut,
+            textStyle: textStyle!,
+            iconSize: iconSize!,
           ),
           onTap: onTap,
           onTapNotify: onTabNotify,
@@ -369,6 +373,7 @@ class ConvexAppBar extends StatefulWidget {
 class ConvexAppBarState extends State<ConvexAppBar>
     with TickerProviderStateMixin {
   int? _currentIndex;
+
   /// get index
   int? get currentIndex => _currentIndex;
   int _warpUnderwayCount = 0;

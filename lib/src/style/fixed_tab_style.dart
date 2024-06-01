@@ -20,25 +20,56 @@ import '../item.dart';
 import 'blend_image_icon.dart';
 import 'inner_builder.dart';
 
-/// Convex shape is fixed center.
+/// A style builder for a fixed tab with a centered convex shape.
+///
+/// This class is used to create a tab style where a specific tab is highlighted
+/// with a convex shape. The highlighted tab is always centered.
+///
+/// The `FixedTabStyle` class extends [InnerBuilder] and overrides the
+/// [build] and [fixed] methods to provide a custom implementation.
+///
+/// Example usage:
+/// ```dart
+/// FixedTabStyle(
+///   items: [
+///     TabItem(icon: Icons.home, title: 'Home'),
+///     TabItem(icon: Icons.search, title: 'Search'),
+///     TabItem(icon: Icons.person, title: 'Profile'),
+///   ],
+///   activeColor: Colors.blue,
+///   color: Colors.grey,
+///   convexIndex: 1,
+///   textStyle: TextStyle(color: Colors.black),
+///   iconSize: 24.0,
+/// );
+/// ```
 class FixedTabStyle extends InnerBuilder {
   /// Index of the centered convex shape.
   final int convexIndex;
 
-  /// Create style builder.
+  /// Size of the icon.
+  final double iconSize;
+
+  /// Style of the text.
+  final TextStyle textStyle;
+
+  /// Creates a [FixedTabStyle] instance.
+  ///
+  /// The [items], [activeColor], [color], [convexIndex], [textStyle], and
+  /// [iconSize] parameters must not be null.
   FixedTabStyle({
     required List<TabItem> items,
     required Color activeColor,
     required Color color,
     required this.convexIndex,
+    required this.textStyle,
+    required this.iconSize,
   }) : super(items: items, activeColor: activeColor, color: color);
 
   @override
   Widget build(BuildContext context, int index, bool active) {
     var c = active ? activeColor : color;
-    var style = ofStyle(context);
     var item = items[index];
-    var textStyle = style.textStyle(c, item.fontFamily);
 
     if (index == convexIndex) {
       var item = items[convexIndex];
@@ -50,23 +81,20 @@ class FixedTabStyle extends InnerBuilder {
             BlendImageIcon(
               active ? item.activeIcon ?? item.icon : item.icon,
               color: item.blend ? (c) : null,
-              size: style.activeIconSize,
+              size: iconSize,
             ),
-            Text(item.title ?? '', style: textStyle)
+            Text(item.title ?? '', style: textStyle),
           ],
         ),
       );
     }
 
-    var noLabel = style.hideEmptyLabel && hasNoText(item);
     var icon = BlendImageIcon(
       active ? item.activeIcon ?? item.icon : item.icon,
-      size: style.iconSize,
+      size: iconSize,
       color: item.blend ? (c) : null,
     );
-    var children = noLabel
-        ? <Widget>[icon]
-        : <Widget>[icon, Text(item.title ?? '', style: textStyle)];
+    var children = <Widget>[icon, Text(item.title ?? '', style: textStyle)];
     return Container(
       padding: EdgeInsets.only(bottom: 2),
       child: Column(
