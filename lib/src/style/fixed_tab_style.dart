@@ -128,10 +128,10 @@ class FixedTabStyle extends InnerBuilder {
               ? selectedTextStyle
               : index == 2
                   ? centerTextStyle
-                  : textStyle)
+                  : textStyle),
     ];
     return Container(
-      padding: EdgeInsets.only(bottom: 2),
+      padding: EdgeInsets.only(bottom: 6),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: children,
